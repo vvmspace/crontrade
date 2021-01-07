@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Console, Command } from 'nestjs-console';
+import { clog } from './libs/clog';
 
 @Injectable()
 @Console()
@@ -10,7 +11,7 @@ export class AppService {
   })
   getHelloTrader(): string {
     const helloTrader = 'Hello Trader!';
-    process.env.CONSOLE && console.log(helloTrader);
+    clog(helloTrader);
     return helloTrader;
   }
 }
