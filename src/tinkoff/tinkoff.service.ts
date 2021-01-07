@@ -81,8 +81,8 @@ export class TinkoffService {
 
     // clog(this.state.markets[0].positions.filter((p) => isUnderWeight(p)));
 
-    // const currencies = await api.currencies();
-    // console.log(currencies);
+    const currencies = await api.currencies();
+    this.state.currencies = currencies.instruments;
   }
 
   async preprocessPositions(positions): Promise<IPosition[]> {
