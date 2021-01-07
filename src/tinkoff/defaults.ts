@@ -37,6 +37,26 @@ export const weights = [
     figi: 'BBG000CSZKR2',
     weight: 2,
   },
+  {
+    ticker: 'AIV',
+    weight: 1,
+  },
+  {
+    ticker: 'ARCC',
+    weight: 1,
+  },
+  {
+    ticker: 'LUMN',
+    weight: 1,
+  },
+  {
+    ticker: 'GNL',
+    weight: 1,
+  },
+  {
+    ticker: 'OKE',
+    weight: 1,
+  },
 ];
 
 const totalWeight = weights.map((w) => w.weight).reduce((a, b) => a + b);
