@@ -1,45 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { Command, Console } from 'nestjs-console';
-// import * as OpenAPI from '@tinkoff/invest-openapi-js-sdk';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const OpenAPI = require('@tinkoff/invest-openapi-js-sdk');
-
-console.log({ OpenAPI });
 
 import { clog } from '../libs/clog';
 import { MarketInstrument } from '@tinkoff/invest-openapi-js-sdk/build/domain';
 import { weights, weightsWithPercent } from './defaults';
+import { IPosition, IState } from './tinkoff.interfaces';
 
 const apiURL = 'https://api-invest.tinkoff.ru/openapi';
 const sandboxApiURL = 'https://api-invest.tinkoff.ru/openapi/sandbox/';
 const socketURL = 'wss://api-invest.tinkoff.ru/openapi/md/v1/md-openapi/ws';
 const secretToken = process.env.TOKEN; // токен для боевого api
 const sandboxToken = process.env.SANDBOX_TOKEN; // токен для сандбокса
-console.log(sandboxToken);
+
 const api = new OpenAPI({
   apiURL: (process.env.TOKEN && apiURL) || sandboxApiURL,
   secretToken: ((process.env.TOKEN && secretToken) || sandboxToken) as string,
   socketURL,
 });
-
-export interface IPosition {
-  currency?: string;
-  cost?: number;
-  lastPrice?: number;
-  percent?: number;
-  figi: string;
-  ticker?: string;
-}
-
-export interface IMarket {
-  currency: string;
-  positions: IPosition[];
-  total: number;
-}
-
-export interface IState {
-  markets: IMarket[];
-}
 
 @Injectable()
 @Console()
