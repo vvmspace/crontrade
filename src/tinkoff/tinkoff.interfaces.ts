@@ -16,4 +16,5 @@ export interface IMarket {
 export interface IState {
   markets?: IMarket[];
   currencies?: any[];
+  USD?: number;
 }

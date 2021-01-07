@@ -38,8 +38,7 @@ export class TinkoffService {
   })
   async update() {
     clog('updating');
-    // const portfolioCurrencies = await api.portfolioCurrencies();
-    // console.log(portfolioCurrencies);
+    const { currencies } = await api.portfolioCurrencies();
     const portfolio = await api.portfolio();
     const positions = await this.preprocessPositions(portfolio.positions);
     // console.log(positions);
@@ -63,26 +62,24 @@ export class TinkoffService {
           total: RUBP.map((u) => u.cost).reduce((a, b) => a + b),
         },
       ],
+      currencies,
     };
+    this.state.USD = this.getUSDs();
 
     this.state.markets = this.state.markets.map((m) => {
       return {
         ...m,
         positions: m.positions.map((p) => {
-          const percent = (100 * p.cost) / m.total;
-          // clog({ percent });
+          const total = m.total + this.getCurrencyBalance(m.currency);
+          const percent = (100 * p.cost) / total;
           return {
             ...p,
             percent,
+            total,
           };
         }),
       };
     });
-
-    // clog(this.state.markets[0].positions.filter((p) => isUnderWeight(p)));
-
-    const currencies = await api.currencies();
-    this.state.currencies = currencies.instruments;
   }
 
   async preprocessPositions(positions): Promise<IPosition[]> {
@@ -168,5 +165,14 @@ export class TinkoffService {
 
   getUSDMarket() {
     return this.state.markets.find((market) => market.currency == 'USD');
+  }
+  getRUBMarket() {
+    return this.state.markets.find((market) => market.currency == 'RUB');
+  }
+  getUSDs() {
+    return this.getCurrencyBalance('USD');
+  }
+  getCurrencyBalance(currency) {
+    return this.state.currencies.find(c => c.currency == currency).balance;
   }
 }
