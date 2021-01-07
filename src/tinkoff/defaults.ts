@@ -69,6 +69,10 @@ export const weights = [
     ticker: 'MOMO',
     weight: 1,
   },
+  {
+    ticker: 'FXIM',
+    weight: 1,
+  },
 ];
 
 const totalWeight = weights.map((w) => w.weight).reduce((a, b) => a + b);
