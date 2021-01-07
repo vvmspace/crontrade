@@ -1,4 +1,5 @@
 import { IPosition } from './tinkoff.service';
+// import { clog } from '../libs/clog';
 
 export const weights = [
   {
@@ -39,6 +40,12 @@ export const weights = [
 ];
 
 const totalWeight = weights.map((w) => w.weight).reduce((a, b) => a + b);
+
+export const weightsWithPercent = weights.map((weight) => {
+  return { ...weight, percent: (100 * weight.weight) / totalWeight };
+});
+
+// clog(weightsWithPercent);
 
 export const isUnderWeight = ({ figi, ticker, percent }: IPosition) => {
   const item = weights.find((w) => w.figi == figi || w.ticker == ticker);

@@ -8,7 +8,7 @@ console.log({ OpenAPI });
 
 import { clog } from '../libs/clog';
 import { MarketInstrument } from '@tinkoff/invest-openapi-js-sdk/build/domain';
-import { isUnderWeight, weights } from './defaults';
+import { weights, weightsWithPercent } from './defaults';
 
 const apiURL = 'https://api-invest.tinkoff.ru/openapi';
 const sandboxApiURL = 'https://api-invest.tinkoff.ru/openapi/sandbox/';
@@ -166,14 +166,27 @@ export class TinkoffService {
     await this.update();
     await Promise.all(
       weights.map(async (weight) => {
-        !weight.figi && clog({ figi: await this.getFigi(weight.ticker), ...weight });
+        !weight.figi &&
+          clog({ figi: await this.getFigi(weight.ticker), ...weight });
       }),
     );
-    const underWeight = this.state.markets
-      .find((market) => market.currency == 'USD')
-      .positions.filter((position) => isUnderWeight(position));
+    const underWeight = weightsWithPercent
+      .map((w) => {
+        const item = this.getUSDMarket().positions.find(
+          (position) => position.ticker == w.ticker,
+        );
+        return { ...w, currentPercent: item?.percent || 0 };
+      })
+      .filter((w) => w.currentPercent < w.percent);
+
+    clog({ underWeight });
+
     const WTB = underWeight[Math.floor(Math.random() * underWeight.length)];
     clog({ WTB });
     clog(await api.marketOrder({ figi: WTB.figi, operation: 'Buy', lots: 1 }));
+  }
+
+  getUSDMarket() {
+    return this.state.markets.find((market) => market.currency == 'USD');
   }
 }
