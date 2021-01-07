@@ -38,6 +38,11 @@ export class TinkoffService {
   })
   async update() {
     clog('updating');
+
+    if (process.env.BROKER_ACCOUNT_ID) {
+      await api.setCurrentAccountId(process.env.BROKER_ACCOUNT_ID);
+    }
+
     const { currencies } = await api.portfolioCurrencies();
     const portfolio = await api.portfolio();
     const positions = await this.preprocessPositions(portfolio.positions);
@@ -173,6 +178,6 @@ export class TinkoffService {
     return this.getCurrencyBalance('USD');
   }
   getCurrencyBalance(currency) {
-    return this.state.currencies.find(c => c.currency == currency).balance;
+    return this.state.currencies.find((c) => c.currency == currency).balance;
   }
 }
