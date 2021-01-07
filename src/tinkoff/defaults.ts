@@ -1,4 +1,4 @@
-import { IPosition } from './tinkoff.service';
+import { IPosition } from './tinkoff.interfaces';
 // import { clog } from '../libs/clog';
 
 export const weights = [
