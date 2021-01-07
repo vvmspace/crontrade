@@ -15,12 +15,12 @@ export const weights = [
   {
     ticker: 'TECH',
     figi: 'BBG111111111',
-    weight: 1,
+    weight: 2,
   },
   {
     ticker: 'TBIO',
     figi: 'TCS00A102EK1',
-    weight: 1,
+    weight: 2,
   },
   {
     ticker: 'VEON',
@@ -35,7 +35,7 @@ export const weights = [
   {
     ticker: 'MBT',
     figi: 'BBG000CSZKR2',
-    weight: 2,
+    weight: 6,
   },
   {
     ticker: 'AIV',
@@ -55,6 +55,18 @@ export const weights = [
   },
   {
     ticker: 'OKE',
+    weight: 1,
+  },
+  {
+    ticker: 'PFE',
+    weight: 1,
+  },
+  {
+    ticker: 'CNK',
+    weight: 1,
+  },
+  {
+    ticker: 'MOMO',
     weight: 1,
   },
 ];
