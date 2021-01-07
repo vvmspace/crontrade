@@ -146,22 +146,18 @@ export class TinkoffService {
   })
   async buySome() {
     await this.update();
-    await Promise.all(
-      weights.map(async (weight) => {
-        !weight.figi &&
-          clog({ figi: await this.getFigi(weight.ticker), ...weight });
-      }),
-    );
-    const underWeight = weightsWithPercent
-      .map((w) => {
-        const item = this.getUSDMarket().positions.find(
-          (position) => position.ticker == w.ticker,
-        );
-        return { ...w, currentPercent: item?.percent || 0 };
-      })
-      .filter((w) => w.currentPercent < w.percent);
+    const weightsWithCurrentPercent = weightsWithPercent.map((w) => {
+      const item = this.getUSDMarket().positions.find(
+        (position) => position.ticker == w.ticker,
+      );
+      return { ...w, currentPercent: item?.percent || 0 };
+    });
 
-    clog({ underWeight });
+    const underWeight = weightsWithCurrentPercent.filter(
+      (w) => w.currentPercent < w.percent,
+    );
+
+    clog({ weightsWithCurrentPercent, underWeight });
 
     const WTB = underWeight[Math.floor(Math.random() * underWeight.length)];
     clog({ WTB });
