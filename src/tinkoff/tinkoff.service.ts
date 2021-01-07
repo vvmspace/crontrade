@@ -8,7 +8,7 @@ console.log({ OpenAPI });
 
 import { clog } from '../libs/clog';
 import { MarketInstrument } from '@tinkoff/invest-openapi-js-sdk/build/domain';
-import { isUnderWeight } from './defaults';
+import { isUnderWeight, weights } from './defaults';
 
 const apiURL = 'https://api-invest.tinkoff.ru/openapi';
 const sandboxApiURL = 'https://api-invest.tinkoff.ru/openapi/sandbox/';
@@ -28,6 +28,7 @@ export interface IPosition {
   lastPrice?: number;
   percent?: number;
   figi: string;
+  ticker?: string;
 }
 
 export interface IMarket {
@@ -163,6 +164,11 @@ export class TinkoffService {
   })
   async buySome() {
     await this.update();
+    await Promise.all(
+      weights.map(async (weight) => {
+        !weight.figi && clog({ figi: await this.getFigi(weight.ticker), ...weight });
+      }),
+    );
     const underWeight = this.state.markets
       .find((market) => market.currency == 'USD')
       .positions.filter((position) => isUnderWeight(position));

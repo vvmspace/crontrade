@@ -1,36 +1,47 @@
 import { IPosition } from './tinkoff.service';
 
-const weights = [
+export const weights = [
+  {
+    ticker: 'TGLD',
+    figi: 'BBG222222222',
+    weight: 4,
+  },
   {
     ticker: 'TIPO',
     figi: 'TCS00A102EM7',
-    weight: 30,
+    weight: 4,
+  },
+  {
+    ticker: 'TECH',
+    figi: 'BBG111111111',
+    weight: 1,
+  },
+  {
+    ticker: 'TBIO',
+    figi: 'TCS00A102EK1',
+    weight: 1,
   },
   {
     ticker: 'VEON',
     figi: 'BBG000QCW561',
-    weight: 10,
+    weight: 1,
   },
   {
-    figi: 'BBG111111111',
-    ticker: 'TECH',
-    weight: 10,
+    ticker: 'ZYNE',
+    figi: 'BBG007BBS8B7',
+    weight: 1,
   },
   {
-    figi: 'BBG000CSZKR2',
     ticker: 'MBT',
-    weight: 30,
-  },
-  {
-    ticker: 'TBIO',
-    weight: 10,
+    figi: 'BBG000CSZKR2',
+    weight: 2,
   },
 ];
 
 const totalWeight = weights.map((w) => w.weight).reduce((a, b) => a + b);
 
-export const isUnderWeight = ({ figi, percent }: IPosition) => {
-  const item = weights.find((w) => w.figi == figi);
+export const isUnderWeight = ({ figi, ticker, percent }: IPosition) => {
+  const item = weights.find((w) => w.figi == figi || w.ticker == ticker);
   if (!item) {
     return;
   }
