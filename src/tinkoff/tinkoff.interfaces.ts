@@ -5,6 +5,9 @@ export interface IPosition {
   percent?: number;
   figi: string;
   ticker?: string;
+  manual?: boolean;
+  currentPercent?: number;
+  lots?: number;
 }
 
 export interface IMarket {

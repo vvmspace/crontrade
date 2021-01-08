@@ -4,10 +4,12 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   providers: [TinkoffService],
-  imports: [ConfigModule.forRoot({
-    validationOptions: {
-      allowUnknown: false
-    }
-  })],
+  imports: [
+    ConfigModule.forRoot({
+      validationOptions: {
+        allowUnknown: false,
+      },
+    }),
+  ],
 })
 export class TinkoffModule {}
