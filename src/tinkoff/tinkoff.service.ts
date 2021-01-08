@@ -162,7 +162,9 @@ export class TinkoffService {
     const WTB = underWeight[Math.floor(Math.random() * underWeight.length)];
     clog({ WTB });
     const figi = WTB.figi || (await this.getFigi(WTB.ticker));
-    clog(await api.marketOrder({ figi, operation: 'Buy', lots: 1 }));
+    const order = { figi, operation: 'Buy', lots: WTB.lots || 1 };
+    console.log(order);
+    clog(await api.marketOrder(order));
   }
 
   getUSDMarket() {

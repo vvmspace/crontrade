@@ -6,21 +6,25 @@ export const weights = [
     ticker: 'TGLD',
     figi: 'BBG222222222',
     weight: 4,
+    lots: 3,
   },
   {
     ticker: 'TIPO',
     figi: 'TCS00A102EM7',
     weight: 4,
+    lots: 3,
   },
   {
     ticker: 'TECH',
     figi: 'BBG111111111',
     weight: 2,
+    lots: 3,
   },
   {
     ticker: 'TBIO',
     figi: 'TCS00A102EK1',
     weight: 2,
+    lots: 3,
   },
   {
     ticker: 'VEON',
