@@ -2,30 +2,34 @@ import { IPosition } from './tinkoff.interfaces';
 // import { clog } from '../libs/clog';
 
 export const weights = [
-  {
-    ticker: 'TGLD',
-    figi: 'BBG222222222',
-    weight: 4,
-    lots: 3,
-  },
-  {
-    ticker: 'TIPO',
-    figi: 'TCS00A102EM7',
-    weight: 4,
-    lots: 3,
-  },
-  {
-    ticker: 'TECH',
-    figi: 'BBG111111111',
-    weight: 2,
-    lots: 3,
-  },
-  {
-    ticker: 'TBIO',
-    figi: 'TCS00A102EK1',
-    weight: 2,
-    lots: 3,
-  },
+  // {
+  //   ticker: 'TGLD',
+  //   figi: 'BBG222222222',
+  //   weight: 4,
+  //   lots: 3,
+  //   manual: true,
+  // },
+  // {
+  //   ticker: 'TIPO',
+  //   figi: 'TCS00A102EM7',
+  //   weight: 2,
+  //   lots: 3,
+  //   manual: true,
+  // },
+  // {
+  //   ticker: 'TECH',
+  //   figi: 'BBG111111111',
+  //   weight: 1,
+  //   lots: 3,
+  //   manual: true,
+  // },
+  // {
+  //   ticker: 'TBIO',
+  //   figi: 'TCS00A102EK1',
+  //   weight: 1,
+  //   lots: 3,
+  //   manual: true,
+  // },
   {
     ticker: 'VEON',
     figi: 'BBG000QCW561',
@@ -75,7 +79,7 @@ export const weights = [
   },
   {
     ticker: 'FXIM',
-    weight: 1,
+    weight: 4,
   },
 ];
 
