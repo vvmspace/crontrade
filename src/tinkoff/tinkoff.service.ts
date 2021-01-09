@@ -34,7 +34,6 @@ export class TinkoffService {
 
   constructor(configService: ConfigService) {
     this.configService = configService;
-    clog(this.configService.get('SANDBOX_TOKEN'));
     this.api = new OpenAPI({
       apiURL:
         (this.configService.get('TOKEN', null) && apiURL) || sandboxApiURL,
@@ -66,14 +65,14 @@ export class TinkoffService {
     const { currencies } = await this.api.portfolioCurrencies();
     const portfolio = await this.api.portfolio();
     const positions = await this.preprocessPositions(portfolio.positions);
-    console.log(positions);
+    // console.log(positions);
     const USDP: IPosition[] = positions.filter(
       (p: IPosition) => p.currency == 'USD',
     );
     const RUBP: IPosition[] = positions.filter(
       (p: IPosition) => p.currency == 'RUB',
     );
-    console.log(USDP, RUBP);
+    // console.log(USDP, RUBP);
     this.state = {
       markets: [
         {
@@ -122,7 +121,7 @@ export class TinkoffService {
             figi,
             depth: 1,
           });
-          clog(position.balance);
+          // clog(position.balance);
           const instrument = await this.api.searchOne({ figi });
           return {
             ...position,
