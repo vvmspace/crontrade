@@ -185,6 +185,11 @@ export class TinkoffService {
     const { figi } = marketInstrument;
     return figi;
   }
+
+  getState() {
+    return this.state;
+  }
+
   @Command({
     command: 'tinkoff:buy:some',
   })

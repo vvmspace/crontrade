@@ -30,6 +30,7 @@
     "@tinkoff/invest-openapi-js-sdk": "^1.2.16",
     "commander": "^6.2.1",
     "nestjs-console": "^4.0.0",
+    "prom-client": "^13.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3"
