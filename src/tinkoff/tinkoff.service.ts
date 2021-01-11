@@ -31,6 +31,7 @@ export class TinkoffService {
   state: IState;
   configService: ConfigService;
   api: any;
+  account: any;
 
   constructor(configService: ConfigService) {
     this.configService = configService;
@@ -42,6 +43,7 @@ export class TinkoffService {
         this.configService.get('SANDBOX_TOKEN'),
       ) as string,
       socketURL,
+      brokerAccountId: this.configService.get('BROKER_ACCOUNT_ID', null),
     });
   }
 
@@ -58,9 +60,19 @@ export class TinkoffService {
   async update() {
     clog('updating');
 
-    if (process.env.BROKER_ACCOUNT_ID) {
-      await this.api.setCurrentAccountId(process.env.BROKER_ACCOUNT_ID);
+    const BROKER_ACCOUNT_ID = this.configService.get('BROKER_ACCOUNT_ID', null);
+
+    if (BROKER_ACCOUNT_ID) {
+      clog({
+        BROKER_ACCOUNT_ID,
+      });
+      await this.api.setCurrentAccountId(BROKER_ACCOUNT_ID);
     }
+    clog(await this.api.accounts());
+
+    this.account = await this.api.getCurrentAccountId();
+
+    clog(this.account);
 
     const { currencies } = await this.api.portfolioCurrencies();
     const portfolio = await this.api.portfolio();
@@ -95,6 +107,7 @@ export class TinkoffService {
       currencies,
     };
     this.state.USD = this.getUSDs();
+    this.state.RUB = this.getRUBs();
 
     this.state.markets = this.state.markets.map((m) => {
       return {
@@ -233,6 +246,9 @@ export class TinkoffService {
   }
   getUSDs() {
     return this.getCurrencyBalance('USD');
+  }
+  getRUBs() {
+    return this.getCurrencyBalance('RUB');
   }
   getCurrencyBalance(currency) {
     return this.state.currencies.find((c) => c.currency == currency).balance;

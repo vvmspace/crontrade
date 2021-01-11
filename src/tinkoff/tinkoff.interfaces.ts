@@ -20,4 +20,5 @@ export interface IState {
   markets?: IMarket[];
   currencies?: any[];
   USD?: number;
+  RUB?: number;
 }
