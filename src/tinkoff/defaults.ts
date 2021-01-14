@@ -79,31 +79,35 @@ export const weights = [
   },
   {
     ticker: 'FXIM',
-    weight: 4,
+    weight: 6,
   },
   {
     ticker: 'VZ',
-    weight: 4,
+    weight: 2,
   },
   {
     ticker: 'PFE',
-    weight: 4,
+    weight: 2,
   },
   {
     ticker: 'T',
-    weight: 4,
+    weight: 2,
   },
   {
     ticker: 'KO',
-    weight: 4,
+    weight: 2,
   },
   {
     ticker: 'ED',
-    weight: 4,
+    weight: 2,
   },
+  {
+    ticker: 'HST',
+    weight: 2,
+  }
 ];
 
-const ru = ['GLTR', 'RTKM'];
+const ru = ['GLTR', 'RTKM', 'GMKN', 'IRAO'];
 
 const totalWeight = weights.map((w) => w.weight).reduce((a, b) => a + b);
 
